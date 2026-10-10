@@ -49,25 +49,31 @@ The public SRSE class is intended to provide convenient methods for interacting 
 
 Example usage:
 
-// Put this using statement at the top of your file or use SRSE.XMethod() on each call
+Put this using statement at the top of your file or use SRSE.XMethod() on each call
+
 Using SRSE;
 
-// Read the current game speed.
+Read the current game speed.
+
 GameSpeed speed = SSSE.GetSpeed();
 
-// Pause or resume the game.
+Pause or resume the game.
+
 Pause();
 Resume();
-TogglePause(); //Toggles state no matter initial condition
+TogglePause(); (Toggles state no matter initial condition)
 
-// Set a specific simulation speed.
+Set a specific simulation speed.
+
 SetSpeed(GameSpeed.Fast);
 
-// Adjust the camera.
-RotateCamera(45f);
-AngleCamera(30f);
+Adjust the camera. (in degrees)
 
-// Read the game window dimensions.
+RotateCamera(45f); 
+AngleCamera(30f); 
+
+Read the game window dimensions.
+
 Coordinate size = SSSE.GetWindowSize();
 int width = size.X;
 int height = size.Y;
