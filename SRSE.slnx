@@ -1,0 +1,6 @@
+<Solution>
+  <Project Path="SinsInjector/SRSE_Loader.csproj">
+    <BuildDependency Project="SRSE.csproj" />
+  </Project>
+  <Project Path="SRSE.csproj" />
+</Solution>
