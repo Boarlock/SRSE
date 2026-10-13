@@ -20,8 +20,8 @@ namespace SRSE
         public const int Game_Pause_Offset = 0x3ED0; // Pause field offset within Iron::Game
         public const int Game_Speed_Offset = 0x3EE8; // Speed field offset within Iron::Game
 
-        public const int Left_Click_Flag = 0x4BF158; // 0 for clickdown, 1 for clickUp NOT RIGHT
-        public const int Right_Click_Flag = 0x4BF15C; // 0 for clickdown, 1 for clickUp NOT RIGHT
+        public const int Left_Click_Up = 0xAFE158; 
+        public const int Right_Click_Up = 0xAFE15C; 
 
         public const int Main_Menu_Flag = 0x9F04B0;
         public const int Game_Flag = 0x9F7C80;
@@ -33,8 +33,8 @@ namespace SRSE
         public const int Cursor_X_Coord = 0xAFE148; // In pixels
         public const int Cursor_Y_Coord = 0xAFE14C; // In pixels, 0 starts at top and moves down
 
-        public const int Camera_Object_Parent = 0x9A0D70;
-        public const int Camera_Object_Offset = 0x2AC; // Offset from the parent object to the camera object.
+        public const int Camera_Object_Pointer = 0x9F0D70;
+        public const int Camera_Object_Offset = 0x2AC; 
         public const int Camera_Timer_Offset = 0x15C;
         public const int Camera_Move_Horizontal_Offset = 0x160;
         public const int Camera_Move_Vertical_Offset = 0x164;
@@ -54,8 +54,8 @@ namespace SRSE
         public static int SimulationFrame => Marshal.ReadInt32(Sins.Address(SinsAddresses.Simulation_Frame));
         public static int GameSimulationFrame => Marshal.ReadInt32(Sins.Address(SinsAddresses.Game_Sim_Frame));
 
-        public static bool IsLeftClickDown => Marshal.ReadInt32(Sins.Address(SinsAddresses.Left_Click_Flag)) == 0;
-        public static bool IsRightClickDown => Marshal.ReadInt32(Sins.Address(SinsAddresses.Right_Click_Flag)) == 0;
+        public static bool IsLeftClickDown => Marshal.ReadInt32(Sins.Address(SinsAddresses.Left_Click_Up)) == 0;
+        public static bool IsRightClickDown => Marshal.ReadInt32(Sins.Address(SinsAddresses.Right_Click_Up)) == 0;
 
         public static bool IsAtMainMenu => Marshal.ReadInt32(Sins.Address(SinsAddresses.Main_Menu_Flag)) == 0;
         public static bool IsCurPlaying => Marshal.ReadByte(Sins.Address(SinsAddresses.Game_Flag)) == 0;
@@ -265,9 +265,11 @@ namespace SRSE
         private static IntPtr PitchAddress = IntPtr.Zero;
         private static IntPtr RotationAddress = IntPtr.Zero;
 
+        private static IntPtr SelectedObject = IntPtr.Zero;
+
         public static void Initialize()
         {
-            int cameraObjectParent = Marshal.ReadInt32(Sins.Address(SinsAddresses.Camera_Object_Parent));
+            int cameraObjectParent = Marshal.ReadInt32(Sins.Address(SinsAddresses.Camera_Object_Pointer));
 
             if (CameraObjectParent == IntPtr.Zero ||
                 CameraObjectParent.ToInt32() != cameraObjectParent ||
@@ -290,6 +292,8 @@ namespace SRSE
                     ZoomAddress = IntPtr.Zero;
                     PitchAddress = IntPtr.Zero;
                     RotationAddress = IntPtr.Zero;
+
+                    SelectedObject = IntPtr.Zero;
                 }
             }
             else
@@ -307,6 +311,15 @@ namespace SRSE
             ZoomAddress = new IntPtr(cameraObjectAddress + SinsAddresses.Camera_Zoom_Offset);
             PitchAddress = new IntPtr(cameraObjectAddress + SinsAddresses.Camera_Pitch_Offset);
             RotationAddress = new IntPtr(cameraObjectAddress + SinsAddresses.Camera_Rotation_Offset);
+
+            // Read pointer at camera + 0x6BC
+            IntPtr candidate = new IntPtr(Marshal.ReadInt32(CameraObject, 0x6BC));
+
+            // Read pointer at candidate + 0x08
+            IntPtr hoverState = new IntPtr(Marshal.ReadInt32(candidate, 0x08));
+
+            // Calculate hover string address: hoverState + 0x1070
+            SelectedObject = new IntPtr(hoverState.ToInt32() + 0x1070);
         }
 
         /*public static float Timer

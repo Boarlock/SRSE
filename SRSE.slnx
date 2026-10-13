@@ -1,6 +1,9 @@
 <Solution>
-  <Project Path="SinsInjector/SRSE_Loader.csproj">
+  <Project Path="FileProcessingState/FileProcessingState.csproj" Id="9ee057b5-4085-4728-81cc-b7480af5150f" />
+  <Project Path="SinsEntityConverter/SinsEntityConverter.csproj" Id="ee060a96-dc4b-4a29-ad0c-b272800d031c" />
+  <Project Path="SinsEntityToJSON/SinsEntityToJSON.csproj" Id="3c2cfc21-39f7-4041-81ba-90c922511cdc" />
+  <Project Path="SinsInjector/SRSE_Loader.csproj" Id="a83c2bb0-38de-4012-89da-1ded8ad92b34">
     <BuildDependency Project="SRSE.csproj" />
   </Project>
-  <Project Path="SRSE.csproj" />
+  <Project Path="SRSE.csproj" Id="e5646ad9-4481-4f68-a1a2-38ea0615e2cc" />
 </Solution>
