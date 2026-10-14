@@ -1,4 +1,4 @@
-﻿
+﻿/*
 namespace SinsEntityConverter
 {
     public class MineDefinition : Def
@@ -15,4 +15,4 @@ namespace SinsEntityConverter
         public EntityFloat? baseMaxAntiMatter;
         public EntityFloat? baseAntiMatterRestoreRate;
     }
-}
+}*/

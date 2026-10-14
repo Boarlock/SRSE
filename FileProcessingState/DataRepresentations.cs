@@ -26,12 +26,30 @@ namespace SinsEntityConverter
         ConversionComplete
     }
 
+    public enum EntityType
+    {
+        Fighter,
+        Frigate,
+        CapitalShip,
+        PlanetModuleStandard,
+        PlanetModuleRefinery,
+        PlanetModuleTradePort,
+        PlanetModuleShipFactory,
+        PlanetModuleHangarDefense,
+        PlanetModuleWeaponDefense,
+        SpaceMine,
+//        Planet,
+//        Star,
+        Unknown
+    }
+
     public class SinsFile
     {
         public string? Path;
         public string? FileName;
         public string? Ext;
-        public string? conversion;
+        public string? Conversion;
+        public EntityType? Type;
         public OperationCode OperationCode;
     }
 

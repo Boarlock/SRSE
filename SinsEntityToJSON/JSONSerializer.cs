@@ -1,8 +1,8 @@
-﻿using System.Diagnostics.CodeAnalysis;
+﻿using System.Diagnostics;
+using System.Diagnostics.CodeAnalysis;
 using System.Globalization;
 using System.Text.Json;
 using System.Text.Json.Serialization;
-using static System.Runtime.InteropServices.JavaScript.JSType;
 
 namespace SinsEntityConverter
 {
@@ -188,7 +188,7 @@ namespace SinsEntityConverter
 
             string newPath = Path.Combine(Deserializer.OutputDir!, Path.GetFileName(outputPath));
 
-            File.Move(outputPath, newPath);
+            File.Copy(outputPath, newPath, true);
             file.OperationCode = OperationCode.Success;
             render(RenderCode.ConversionSuccess, file, newPath);
         }

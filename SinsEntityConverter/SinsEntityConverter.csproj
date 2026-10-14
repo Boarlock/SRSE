@@ -7,7 +7,12 @@
     <UseWindowsForms>true</UseWindowsForms>
     <ImplicitUsings>enable</ImplicitUsings>
     <StartupObject>SinsEntityConverter.Program</StartupObject>
+    <ApplicationIcon>bin\Release\net10.0-windows\converter.ico</ApplicationIcon>
   </PropertyGroup>
+
+  <ItemGroup>
+    <Content Include="bin\Release\net10.0-windows\converter.ico" />
+  </ItemGroup>
 
   <ItemGroup>
     <ProjectReference Include="..\SinsEntityToJSON\SinsEntityToJSON.csproj" />

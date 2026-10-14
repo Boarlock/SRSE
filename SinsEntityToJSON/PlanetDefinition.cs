@@ -1,10 +1,10 @@
-﻿
+﻿/*
 namespace SinsEntityConverter
 {
     public class PlanetDefinition : Def
     {
         public EntityInt? meshInfoCount;
-        public meshInfo? meshInfo;
+        public List<meshInfo>? meshInfo;
         public string? glowColor;
         public string? ringColor;
         public string? cloudLayerTextureName;
@@ -23,8 +23,9 @@ namespace SinsEntityConverter
         public List<skyboxScalar>? skyboxScalars;
 
         public EntityInt? requiredPlanetBonusesCount;
+        public List<string>? requiredBonuses;
         public EntityInt? possibleRandomPlanetBonusesCount;
-        public string? bonus;
+        public List<string>? possibleBonuses;
         public string? ambienceSoundID;
         public EntityBool? renderAsVolcanic;
 
@@ -140,4 +141,4 @@ namespace SinsEntityConverter
         public EntityFloat? crystalOnStrippedToTheCore;
         public EntityFloat? extraScuttleTimeOnStrip;
     }
-}
+}*/

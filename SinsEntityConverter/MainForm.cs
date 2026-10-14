@@ -210,9 +210,9 @@ namespace SinsEntityConverter
 
                 if (!isXSITab)
                 {
-                    data.curFile.conversion = BinTxtIdentifier();
+                    data.curFile.Conversion = BinTxtIdentifier();
 
-                    if (data.curFile.conversion == "")
+                    if (data.curFile.Conversion == "")
                     {
                         data.curFile.OperationCode = OperationCode.InvalidContent;
                         Render(RenderCode.LoadFailed, data.curFile);
@@ -361,6 +361,10 @@ namespace SinsEntityConverter
 
             data.curFiles = new(data.loadedFiles);
 
+            
+            string tempDir = Path.Combine(appDir, "temp");
+            Directory.CreateDirectory(tempDir);
+
             if (!isJSONTab)
             {
                 var processInfo = new ProcessStartInfo();
@@ -373,9 +377,6 @@ namespace SinsEntityConverter
                 processInfo.UseShellExecute = false;
                 processInfo.CreateNoWindow = true;
                 processInfo.WindowStyle = ProcessWindowStyle.Hidden;
-
-                string tempDir = Path.Combine(appDir, "temp");
-                Directory.CreateDirectory(tempDir);
                 processInfo.WorkingDirectory = tempDir;
 
                 string outputText = "";
@@ -407,14 +408,13 @@ namespace SinsEntityConverter
                     string outputDir = "";
                     string tempFilePath = Path.Combine(tempDir, Path.GetFileName(file.Path)!);
 
-                    if (file.Path != tempFilePath)
-                        File.Copy(file.Path!, tempFilePath, true);
+                    File.Copy(file.Path!, tempFilePath, true);
 
-                    if (file.conversion == null)
+                    if (file.Conversion == null)
                         outputDir = outputMesh;
-                    else if (file.conversion == "txt")
+                    else if (file.Conversion == "txt")
                         outputDir = outputText;
-                    else if (file.conversion == "bin")
+                    else if (file.Conversion == "bin")
                         outputDir = outputBin;
 
                     if (!isXSITab)
@@ -422,7 +422,7 @@ namespace SinsEntityConverter
                         processInfo.Arguments = $"{file.Ext} " +
                         $"{file.FileName}.{file.Ext} " +
                         $"{file.FileName}.{file.Ext} " +
-                        $"{file.conversion}";
+                        $"{file.Conversion}";
                     }
                     else
                     {
@@ -477,7 +477,7 @@ namespace SinsEntityConverter
 
                     if (!isXSITab)
                     {
-                        if (BinTxtIdentifier(tempFilePath) == file.conversion)
+                        if (BinTxtIdentifier(tempFilePath) == file.Conversion)
                         {
                             file.OperationCode = OperationCode.ConversionFailed;
                             Render(RenderCode.ConversionFailed, file);
@@ -486,7 +486,7 @@ namespace SinsEntityConverter
                         }
                     }
 
-                    File.Copy(tempFilePath, newFilePath);
+                    File.Copy(tempFilePath, newFilePath, true);
                     file.OperationCode = OperationCode.Success;
                     Render(RenderCode.ConversionSuccess, file, newFilePath);
                 }
@@ -500,7 +500,7 @@ namespace SinsEntityConverter
             {
                 var deserializer = new Deserializer(data, Render);
 
-                deserializer.Deserialize(appDir);
+                deserializer.Deserialize(appDir, tempDir);
             }
         }
 
@@ -541,6 +541,9 @@ namespace SinsEntityConverter
                         break;
                     case OperationCode.InvalidExtension:
                         extraText = "Invalid file type.";
+                        break;
+                    case OperationCode.FileNotFound:
+                        extraText = "File not found.";
                         break;
                 }
             }
