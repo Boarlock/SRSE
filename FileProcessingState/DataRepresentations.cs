@@ -28,18 +28,22 @@ namespace SinsEntityConverter
 
     public enum EntityType
     {
+        Squad,
         Fighter,
         Frigate,
+        SpaceMine,
+        Starbase,
+        CannonShell,
         CapitalShip,
+        Titan,
         PlanetModuleStandard,
         PlanetModuleRefinery,
         PlanetModuleTradePort,
         PlanetModuleShipFactory,
         PlanetModuleHangarDefense,
         PlanetModuleWeaponDefense,
-        SpaceMine,
-//        Planet,
-//        Star,
+        Planet,
+        Star,
         Unknown
     }
 

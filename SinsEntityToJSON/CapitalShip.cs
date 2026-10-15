@@ -92,26 +92,6 @@ namespace SinsEntityConverter
         public EntityFloat? minShadow;
         public EntityFloat? maxShadow;
 
-        private enum EffectsTypes
-        {
-            bombEffectsDef,
-            WeaponEffects,
-            Unknown
-        }
-
-        public class Effects
-        {
-            public string? chargeUpEffectName;
-            public string? chargeUpEffectNameBetweenStars;
-            public string? chargeUpEffectNameDestabilized;
-            public string? chargeUpEffectSoundID;
-            public string? travelEffectName;
-            public string? travelEffectNameBetweenStars;
-            public string? travelEffectNameDestabilized;
-            public string? travelEffectSoundID;
-            public string? exitEffectName;
-            public string? exitEffectSoundID;
-        }
 
         private EffectsTypes effectsType = EffectsTypes.Unknown;
         private WeaponEffects? currentEffects;
@@ -870,7 +850,6 @@ namespace SinsEntityConverter
                     return true;
 
                 default:
-                    Debug.WriteLine($"No match found. Key: {key} | Value: {value}");
                     return false;
             }
         }

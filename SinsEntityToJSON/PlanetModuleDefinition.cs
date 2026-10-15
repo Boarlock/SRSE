@@ -692,7 +692,6 @@ namespace SinsEntityConverter
                             return true;
                     }
 
-                    Debug.WriteLine($"EffectType not found.");
                     return false;
 
                 case "burstCount":
@@ -1034,7 +1033,6 @@ namespace SinsEntityConverter
                             return true;
                     }
 
-                    Debug.WriteLine($"EffectType not found.");
                     return false;
 
                 case "burstCount":

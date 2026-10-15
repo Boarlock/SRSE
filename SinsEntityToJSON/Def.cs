@@ -4,13 +4,20 @@ using System.Text.Json.Serialization;
 namespace SinsEntityConverter
 {
     [JsonPolymorphic]
+    [JsonDerivedType(typeof(SquadDefinition), "Squad")]
     [JsonDerivedType(typeof(FighterDefinition), "Fighter")]
     [JsonDerivedType(typeof(FrigateDefinition), "Frigate")]
+    [JsonDerivedType(typeof(SpaceMineDefinition), "SpaceMine")]
+    [JsonDerivedType(typeof(StarbaseDefinition), "Starbase")]
+    [JsonDerivedType(typeof(CannonShellDefinition), "CannonShell")]
     [JsonDerivedType(typeof(CapitalShipDefinition), "CapitalShip")]
+    [JsonDerivedType(typeof(TitanDefinition), "Titan")]
     [JsonDerivedType(typeof(PlanetModuleStandardDefinition), "PlanetModuleStandard")]
     [JsonDerivedType(typeof(PlanetModuleHangarDefenseDefinition), "PlanetModuleHangarDefense")]
     [JsonDerivedType(typeof(PlanetModuleMissileDefenseDefinition), "PlanetModuleMissileDefense")]
     [JsonDerivedType(typeof(PlanetModuleCargoDefinition), "PlanetModuleCargo")]
+    [JsonDerivedType(typeof(PlanetDefinition), "Planet")]
+    [JsonDerivedType(typeof(StarDefinition), "Star")]
     public abstract class Def 
     {
         public abstract bool Apply(string key, string value);
@@ -339,7 +346,8 @@ namespace SinsEntityConverter
     }
 
     [JsonPolymorphic]
-    [JsonDerivedType(typeof(MeshNameInfoPrerequisites), "MeshNameInfo")]
+    [JsonDerivedType(typeof(MeshNameInfoPrerequisites), "Prerequisites")]
+    [JsonDerivedType(typeof(MeshNameInfoRequirements), "Requirements")]
     public class MeshNameInfo
     {
         [JsonPropertyOrder(0)]
@@ -352,5 +360,32 @@ namespace SinsEntityConverter
     {
         [JsonPropertyOrder(3)]
         public Prerequisites? prerequisites;
+    }
+
+    public class MeshNameInfoRequirements : MeshNameInfo
+    {
+        [JsonPropertyOrder(3)]
+        public Requirements? levelRequirements;
+    }
+
+    public class Effects
+    {
+        public string? chargeUpEffectName;
+        public string? chargeUpEffectNameBetweenStars;
+        public string? chargeUpEffectNameDestabilized;
+        public string? chargeUpEffectSoundID;
+        public string? travelEffectName;
+        public string? travelEffectNameBetweenStars;
+        public string? travelEffectNameDestabilized;
+        public string? travelEffectSoundID;
+        public string? exitEffectName;
+        public string? exitEffectSoundID;
+    }
+
+    public enum EffectsTypes
+    {
+        bombEffectsDef,
+        WeaponEffects,
+        Unknown
     }
 }

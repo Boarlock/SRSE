@@ -121,13 +121,6 @@ namespace SinsEntityConverter
         public EntityFloat? allegianceDecreasePerRoundtrip;
 
 
-        private enum EffectsTypes
-        {
-            bombEffectsDef,
-            WeaponEffects,
-            Unknown
-        }
-
         private EffectsTypes effectsType = EffectsTypes.Unknown;
         private Prerequisites? currentPrerequisite;
         private WeaponEffects? currentEffects;
@@ -958,7 +951,6 @@ namespace SinsEntityConverter
                     return true;
 
                 default:
-                    Debug.WriteLine($"No match found. Key: {key} | Value: {value}");
                     return false;
             }
         }
